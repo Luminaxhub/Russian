@@ -1,6 +1,5 @@
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
-local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local LocalPlayer = Players.LocalPlayer
 
@@ -8,9 +7,8 @@ _G.HeadSize = 15
 _G.Disabled = false
 _G.SelectedColor = BrickColor.new("Lime green")
 
--- UI
 local gui = Instance.new("ScreenGui", game.CoreGui)
-gui.Name = "HitboxExpander by Luminaprojects"
+gui.Name = "Расширитель Хитбокса by Luminaprojects"
 
 local frame = Instance.new("Frame", gui)
 frame.Size = UDim2.new(0, 300, 0, 220)
@@ -20,7 +18,6 @@ frame.BorderSizePixel = 0
 frame.Active = true
 frame.Draggable = true
 
--- Кнопка Свернуть
 local minimizeBtn = Instance.new("TextButton", frame)
 minimizeBtn.Size = UDim2.new(0, 30, 0, 30)
 minimizeBtn.Position = UDim2.new(1, -35, 0, 5)
@@ -30,17 +27,15 @@ minimizeBtn.TextSize = 18
 minimizeBtn.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
 minimizeBtn.TextColor3 = Color3.new(1, 1, 1)
 
--- Заголовок
 local title = Instance.new("TextLabel", frame)
 title.Size = UDim2.new(1, -40, 0, 30)
-title.Text = "Расширитель Хитбокса by luminaprojects"
+title.Text = "Расширитель Хитбокса by Luminaprojects"
 title.TextColor3 = Color3.new(1, 1, 1)
 title.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 title.Font = Enum.Font.GothamBold
 title.TextSize = 18
 title.Position = UDim2.new(0, 0, 0, 0)
 
--- Размер Хитбокса
 local sizeLabel = Instance.new("TextLabel", frame)
 sizeLabel.Position = UDim2.new(0, 10, 0, 40)
 sizeLabel.Size = UDim2.new(0, 120, 0, 25)
@@ -65,7 +60,6 @@ sizeBox.FocusLost:Connect(function()
 	end
 end)
 
--- Цвет
 local colorLabel = Instance.new("TextLabel", frame)
 colorLabel.Position = UDim2.new(0, 10, 0, 75)
 colorLabel.Size = UDim2.new(0, 120, 0, 25)
@@ -84,12 +78,16 @@ colorDropdown.TextColor3 = Color3.new(1, 1, 1)
 colorDropdown.Font = Enum.Font.Gotham
 colorDropdown.TextSize = 14
 
+-- ✅ Tambahan warna di sini
 local colorOptions = {
 	["Салатовый"] = BrickColor.new("Lime green"),
 	["Синий"] = BrickColor.new("Really blue"),
 	["Чёрный"] = BrickColor.new("Black"),
 	["Жёлтый"] = BrickColor.new("New Yeller"),
-	["Белый"] = BrickColor.new("White")
+	["Белый"] = BrickColor.new("White"),
+	["Фиолетовый"] = BrickColor.new("Bright violet"),
+	["Розовый"] = BrickColor.new("Hot pink"),
+	["Оранжевый"] = BrickColor.new("Bright orange"),
 }
 
 local dropdownOpen = false
@@ -123,7 +121,6 @@ colorDropdown.MouseButton1Click:Connect(function()
 	end
 end)
 
--- Кнопка Включить/Отключить
 local toggleBtn = Instance.new("TextButton", frame)
 toggleBtn.Position = UDim2.new(0, 10, 0, 170)
 toggleBtn.Size = UDim2.new(0, 280, 0, 30)
@@ -139,7 +136,6 @@ toggleBtn.MouseButton1Click:Connect(function()
 	toggleBtn.BackgroundColor3 = _G.Disabled and Color3.fromRGB(170, 0, 0) or Color3.fromRGB(0, 170, 0)
 end)
 
--- Свернуть / Развернуть
 local minimized = false
 minimizeBtn.MouseButton1Click:Connect(function()
 	minimized = not minimized
@@ -153,7 +149,6 @@ minimizeBtn.MouseButton1Click:Connect(function()
 	end
 end)
 
--- Логика Хитбокса
 RunService.RenderStepped:Connect(function()
 	if _G.Disabled then
 		for _, plr in pairs(Players:GetPlayers()) do
